@@ -1,0 +1,184 @@
+:root{
+  --bg: #141110;
+  --bg-raised: #1d1917;
+  --card: #21201d;
+  --teal: #2b4a47;
+  --gold: #e8a33d;
+  --gold-dim: #a97a34;
+  --cream: #f2ead8;
+  --cream-dim: #b9b0a0;
+  --danger: #c25b4a;
+  --radius: 18px;
+  --font-display: 'Fraunces', serif;
+  --font-mono: 'Space Mono', monospace;
+  --font-body: 'Inter', sans-serif;
+}
+
+*{box-sizing:border-box;}
+html,body{height:100%;}
+body{
+  margin:0;
+  background: radial-gradient(120% 120% at 50% -10%, #201c19 0%, var(--bg) 55%);
+  color: var(--cream);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  overscroll-behavior: none;
+}
+
+#app{
+  max-width: 480px;
+  margin: 0 auto;
+  min-height: 100vh;
+  padding: 32px 24px 48px;
+  display:flex;
+  flex-direction:column;
+}
+
+.screen{ display:none; flex:1; flex-direction:column; }
+.screen.active{ display:flex; }
+
+/* ---------- Login ---------- */
+#screen-login{ align-items:center; justify-content:center; text-align:center; gap: 8px; }
+.brand{
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 2.6rem;
+  margin: 24px 0 4px;
+  letter-spacing: -0.02em;
+}
+.brand__accent{ color: var(--gold); }
+.tagline{ color: var(--cream-dim); margin: 0 0 28px; font-size: 0.95rem; }
+.hint{ color: var(--cream-dim); font-size: 0.8rem; margin-top: 14px; text-align:center; }
+
+/* ---------- Vinyl signature element ---------- */
+.vinyl{
+  width: 140px; height: 140px;
+  border-radius: 50%;
+  background:
+    repeating-radial-gradient(circle at center, #0c0a09 0 2px, #17130f 2px 5px);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.5), inset 0 0 0 1px rgba(255,255,255,0.04);
+  display:flex; align-items:center; justify-content:center;
+  position:relative;
+}
+.vinyl__label{
+  width: 46px; height:46px; border-radius:50%;
+  background: var(--gold);
+  box-shadow: inset 0 0 0 6px var(--bg), inset 0 0 0 7px var(--gold-dim);
+}
+.vinyl--idle{ animation: spin 12s linear infinite; opacity: 0.9; }
+.vinyl--playing{ margin: 20px auto 8px; animation: spin 2.4s linear infinite; animation-play-state: paused; }
+.vinyl--playing.is-spinning{ animation-play-state: running; }
+.vinyl--playing.is-stopping{ animation: spin-stop 1.4s cubic-bezier(.2,.8,.3,1) forwards; }
+
+@keyframes spin{ to{ transform: rotate(360deg); } }
+@keyframes spin-stop{
+  0%{ transform: rotate(0deg); animation-timing-function: linear; }
+  100%{ transform: rotate(160deg); }
+}
+
+@media (prefers-reduced-motion: reduce){
+  .vinyl--idle, .vinyl--playing{ animation: none !important; }
+}
+
+/* ---------- Buttons ---------- */
+.btn{
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.95rem;
+  border: none;
+  border-radius: 999px;
+  padding: 15px 28px;
+  cursor: pointer;
+  transition: transform .12s ease, opacity .12s ease, background .12s ease;
+}
+.btn:active{ transform: scale(0.97); }
+.btn:disabled{ opacity: 0.35; cursor: not-allowed; }
+.btn--primary{ background: var(--gold); color: #201804; }
+.btn--primary:hover:not(:disabled){ background:#f0af51; }
+.btn--accent{ background: var(--teal); color: var(--cream); }
+.btn--ghost{ background: var(--bg-raised); color: var(--cream); border:1px solid rgba(255,255,255,0.08); padding: 12px 16px; }
+.btn--text{ background:transparent; color: var(--cream-dim); padding: 8px 4px; font-weight:500; }
+.btn--wide{ width:100%; margin-top: 14px; }
+.btn:focus-visible{ outline: 2px solid var(--gold); outline-offset: 3px; }
+
+/* ---------- Setup screen ---------- */
+.section-title{
+  font-family: var(--font-display); font-weight:600; font-size:1.4rem; margin: 0 0 20px;
+}
+.card{
+  background: var(--card);
+  border-radius: var(--radius);
+  padding: 20px;
+  margin-bottom: 16px;
+  border: 1px solid rgba(255,255,255,0.05);
+}
+.card__title{
+  font-family: var(--font-mono); font-size: 0.8rem; letter-spacing: 0.04em;
+  color: var(--gold); margin: 0 0 8px; text-transform: uppercase;
+}
+.card__desc{ color: var(--cream-dim); font-size: 0.85rem; margin: 0 0 14px; line-height:1.4; }
+.card__desc code{ background: var(--bg-raised); padding: 2px 6px; border-radius: 6px; font-family: var(--font-mono); font-size:0.78rem; }
+
+.file-drop{
+  display:flex; align-items:center; justify-content:center;
+  border: 1.5px dashed rgba(255,255,255,0.18);
+  border-radius: 12px; padding: 18px; cursor:pointer;
+  color: var(--cream-dim); font-size: 0.85rem; text-align:center;
+}
+.file-drop:hover{ border-color: var(--gold); color: var(--cream); }
+
+.device-row{ display:flex; gap: 10px; }
+.select{
+  flex:1; background: var(--bg-raised); color: var(--cream);
+  border: 1px solid rgba(255,255,255,0.1); border-radius: 12px;
+  padding: 12px 14px; font-family: var(--font-body); font-size: 0.9rem;
+}
+
+#setup-count{ text-align:center; }
+
+/* ---------- Game screen ---------- */
+.topbar{ display:flex; justify-content:space-between; align-items:center; margin-bottom: 8px; }
+.pill{
+  font-family: var(--font-mono); font-size: 0.78rem; background: var(--bg-raised);
+  padding: 6px 14px; border-radius: 999px; color: var(--gold);
+}
+
+.timer{
+  font-family: var(--font-mono); font-weight:700; font-size: 2.4rem;
+  text-align:center; margin: 4px 0 20px; color: var(--cream);
+  letter-spacing: 0.02em;
+}
+
+.controls{ display:flex; }
+
+/* ---------- Reveal card ---------- */
+.reveal-card{
+  margin-top: 20px;
+  background: var(--teal);
+  border-radius: var(--radius);
+  padding: 32px 24px;
+  text-align:center;
+  animation: reveal-in .35s ease;
+}
+.reveal-card.hidden{ display:none; }
+@keyframes reveal-in{
+  from{ opacity:0; transform: translateY(10px) scale(0.98); }
+  to{ opacity:1; transform: translateY(0) scale(1); }
+}
+.reveal-card__year{
+  font-family: var(--font-display); font-weight:900; font-size: 3.2rem;
+  color: var(--gold); line-height:1;
+}
+.reveal-card__title{
+  font-family: var(--font-display); font-weight:600; font-size: 1.3rem; margin-top: 10px;
+}
+.reveal-card__artist{ color: var(--cream-dim); margin-top: 4px; font-size: 0.95rem; }
+
+/* ---------- Toast ---------- */
+.toast{
+  position: fixed; left: 50%; bottom: 28px; transform: translateX(-50%);
+  background: var(--danger); color: #fff; padding: 12px 20px; border-radius: 12px;
+  font-size: 0.85rem; max-width: 90%; text-align:center; z-index: 50;
+  box-shadow: 0 10px 24px rgba(0,0,0,0.4);
+}
+.toast.hidden{ display:none; }

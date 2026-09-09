@@ -1,0 +1,14 @@
+{
+  "name": "Hitstermin",
+  "short_name": "Hitstermin",
+  "description": "Musik-Quiz: Jahr raten, Karte aufdecken.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#141110",
+  "theme_color": "#141110",
+  "orientation": "portrait",
+  "icons": [
+    { "src": "icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+  ]
+}

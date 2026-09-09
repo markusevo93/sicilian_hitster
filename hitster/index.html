@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#141110">
+<title>Hitstermin</title>
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400;600;900&family=Space+Mono:wght@400;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="app">
+
+  <!-- LOGIN SCREEN -->
+  <section id="screen-login" class="screen active">
+    <div class="vinyl vinyl--idle" aria-hidden="true">
+      <div class="vinyl__label"></div>
+    </div>
+    <h1 class="brand">Hitster<span class="brand__accent">min</span></h1>
+    <p class="tagline">Rate das Jahr. Schreib's auf. Deck auf.</p>
+    <button id="btn-login" class="btn btn--primary">Mit Spotify verbinden</button>
+    <p class="hint">Braucht Spotify Premium auf dem Wiedergabegerät.</p>
+  </section>
+
+  <!-- SETUP SCREEN -->
+  <section id="screen-setup" class="screen">
+    <h2 class="section-title">Vorbereitung</h2>
+
+    <div class="card">
+      <h3 class="card__title">01 — Songliste</h3>
+      <p class="card__desc">CSV mit Spalten <code>titel;interpret;jahr</code> (eine Kopfzeile, Semikolon-getrennt).</p>
+      <label class="file-drop" for="csv-input">
+        <span id="csv-status">Datei auswählen …</span>
+      </label>
+      <input type="file" id="csv-input" accept=".csv,text/csv" hidden>
+    </div>
+
+    <div class="card">
+      <h3 class="card__title">02 — Wiedergabegerät</h3>
+      <p class="card__desc">Öffne Spotify auf dem gewünschten Gerät (z.B. deinem Handy), dann hier auswählen.</p>
+      <div class="device-row">
+        <select id="device-select" class="select"></select>
+        <button id="btn-refresh-devices" class="btn btn--ghost" title="Geräte neu laden">↻</button>
+      </div>
+    </div>
+
+    <button id="btn-start-game" class="btn btn--primary" disabled>Runde starten</button>
+    <p id="setup-count" class="hint"></p>
+  </section>
+
+  <!-- GAME SCREEN -->
+  <section id="screen-game" class="screen">
+    <div class="topbar">
+      <span id="round-counter" class="pill">Runde 1</span>
+      <button id="btn-quit" class="btn btn--text">Beenden</button>
+    </div>
+
+    <div class="vinyl vinyl--playing" id="vinyl" aria-hidden="true">
+      <div class="vinyl__label"></div>
+    </div>
+
+    <div id="timer" class="timer">1:00</div>
+
+    <div class="controls">
+      <button id="btn-play-pause" class="btn btn--primary btn--wide">Song abspielen</button>
+    </div>
+
+    <button id="btn-reveal" class="btn btn--accent btn--wide" disabled>Karte aufdecken</button>
+
+    <!-- REVEAL CARD -->
+    <div id="reveal-card" class="reveal-card hidden">
+      <div class="reveal-card__year" id="reveal-year">19XX</div>
+      <div class="reveal-card__title" id="reveal-title">Titel</div>
+      <div class="reveal-card__artist" id="reveal-artist">Interpret</div>
+      <button id="btn-next-round" class="btn btn--primary btn--wide">Nächste Runde</button>
+    </div>
+  </section>
+
+  <!-- ERROR TOAST -->
+  <div id="toast" class="toast hidden"></div>
+
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
